@@ -16,6 +16,8 @@ env:
   BASE_URL: https://www.testmuai.com/selenium-playground/
   HYPEREXECUTE_PLATFORM_WIN: Windows 10
   HYPEREXECUTE_PLATFORM_LINUX: Linux
+  LT_USERNAME:${LT_USERNAME}
+  LT_ACCESS_KEY:${LT_ACCESS_KEY}
 
 # Pre Steps - install dependencies & cache node_modules
 pre_steps:
