@@ -1,0 +1,15 @@
+{
+  "name": "playwright-hyperexecute",
+  "version": "1.0.0",
+  "description": "Playwright tests running on HyperExecute cloud grid",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4"
+  }
+}

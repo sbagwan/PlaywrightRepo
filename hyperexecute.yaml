@@ -1,0 +1,63 @@
+name: TestMuAI_Playwright
+version: 1.0
+description: Playwright tests on LambdaTest HyperExecute Cloud Grid
+
+# Secret Management
+secrets:
+  - name: LT_USERNAME
+    type: secret
+    value: ${{ secrets.LT_USERNAME }}
+  - name: LT_ACCESS_KEY
+    type: secret
+    value: ${{ secrets.LT_ACCESS_KEY }}
+
+# Environment Variables
+env:
+  BASE_URL: https://www.testmuai.com/selenium-playground/
+  HYPEREXECUTE_PLATFORM_WIN: Windows 10
+  HYPEREXECUTE_PLATFORM_LINUX: Linux
+
+# Pre Steps - install dependencies & cache node_modules
+pre_steps:
+  - name: Restore Cache
+    run: |
+      if [ -d node_modules ]; then
+        echo "Using cached dependencies"
+      else
+        npm install
+      fi
+  - name: Install Dependencies
+    run: npm install
+
+# Parallel Execution
+matrix:
+  browser: [Win10_Chrome_latest, Linux_Firefox_latest]
+
+# Run tests
+run:
+  - name: Run Playwright tests
+    shell: bash
+    command: |
+      npx playwright test --project=$browser --reporter=list,html
+
+# Artifacts
+artifacts:
+  - name: Playwright-Reports
+    type: directory
+    path: playwright-report
+  - name: Videos
+    type: directory
+    path: videos
+  - name: Traces
+    type: directory
+    path: traces
+
+# Optional Post Steps
+post_steps:
+  - name: Upload artifacts to HyperExecute dashboard
+    run: echo "Artifacts uploaded automatically to HyperExecute"
+
+# Cache node_modules
+cache:
+  - path: node_modules
+    key: node_modules_cache
